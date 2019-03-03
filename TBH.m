@@ -68,7 +68,7 @@ for order=0:accu
  %从K-点到M点的能带数据
   temp3=[order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2];
   x_cordi=[x_cordi;temp3];
- end
+end
 
 
 %从M点到Gamma点的K值
