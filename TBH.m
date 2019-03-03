@@ -34,7 +34,7 @@ for order=0:accu
   kx=-sqrt(3)/4-1/(4*sqrt(3))*order/accu;
   ky=1/4*(1-order/accu);
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky)
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从M点到K+点的能带数据
@@ -48,7 +48,7 @@ for order=0:2*accu
   ky=0;
   kx=-1/sqrt(3)+1/sqrt(3)*order/accu;
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky)
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从K+到K-点的能带数据
@@ -62,7 +62,7 @@ for order=0:accu
   kx=1/sqrt(3)-1/(4*sqrt(3))*order/accu;
   ky=1/4*order/accu;
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky)
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从K-点到M点的能带数据
