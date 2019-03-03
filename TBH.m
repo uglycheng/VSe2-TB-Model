@@ -80,18 +80,17 @@ end
 %x_cordi=[x_cordi;temp4];
 
 function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky)
+ 
  %定义lattice
  a1=a*[1/2,sqrt(3)/2,0];
  a2=a*[1/2,-sqrt(3)/2,0];
-
  %定义basis
  b1=a/sqrt(3)*[0,1,d];
  b2=a/sqrt(3)*[0,1,-d];
-
  %定义两个比例
  r=1/sqrt(1+d^2);
  v=1/sqrt(1+4*d^2);
- 
+ %定义k向量
  k=4*pi/(sqrt(3)*a)*[kx,ky,0];
 
  %不考虑其他效应，定义最原始的TB矩阵
@@ -238,7 +237,6 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
 
  %定义总的矩阵
  H=[tb_no_soc+mag,zeros(9,9);zeros(9,9),tb_no_soc-mag]+soc;
-
 end 
 
 
