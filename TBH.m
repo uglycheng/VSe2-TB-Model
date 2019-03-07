@@ -8,15 +8,19 @@ e3=0;
 e4=-3;
 e5=-3;
 e6=-3;
+e7=-5;
 %以下参数中，下标a表示西格玛键，下标b表示派键，c表示德尔塔键
 Vdda=-0.5;%调这个参数可以改变中间峰的高低，和两边的平缓程度
-Vddb=1.5;%调这个参数可以改变边缘那一段的平缓和陡峭程度
+Vddb=1.5;%调这个参数可以改变边缘那段的平缓和陡峭程度
 Vddc=1.5;%调这个参数可以让K点附件的谷变深
 Vpda=1.2;%调这个参数可以让e1那条带中间的峰变高
 Vpdb=0.6;
 
 Vppa=0;
 Vppb=0;
+Vssa=0;
+Vspa=0;
+Vsda=0;
 
 %磁效应和SOC
 c=0.3;
@@ -34,25 +38,25 @@ for order=0:accu
   kx=-sqrt(3)/4-1/(4*sqrt(3))*order/accu;
   ky=1/4*(1-order/accu);
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,e7,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,Vssa,Vspa,Vsda,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从M点到K+点的能带数据
-  temp1=[order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2];
+  temp1=[order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2;order/2];
   x_cordi=[x_cordi;temp1];
 end
 
 %从K+点到K-点，途径Gamma点
 for order=0:2*accu
- %从K+到K-点的K值
+ %从K+到K-点的K指
   ky=0;
   kx=-1/sqrt(3)+1/sqrt(3)*order/accu;
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,e7,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,Vssa,Vspa,Vsda,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从K+到K-点的能带数据
-  temp2=[accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order];
+  temp2=[accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order;accu/2+order];
   x_cordi=[x_cordi;temp2];
 end
 
@@ -62,11 +66,11 @@ for order=0:accu
   kx=1/sqrt(3)-1/(4*sqrt(3))*order/accu;
   ky=1/4*order/accu;
  %得到矩阵
-  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky);
+  H=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,e7,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,Vssa,Vspa,Vsda,c,m1,m2,kx,ky);
  %得到能带
   Band=[Band;eig(H)];
  %从K-点到M点的能带数据
-  temp3=[order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2];
+  temp3=[order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2;order/2+accu*5/2];
   x_cordi=[x_cordi;temp3];
 end
 
@@ -79,7 +83,7 @@ end
 %temp4=[order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3,order*sqrt(3)/2+accu*3];
 %x_cordi=[x_cordi;temp4];
 
-function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c,m1,m2,kx,ky)
+function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,e7,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,Vssa,Vspa,Vsda,c,m1,m2,kx,ky)
  
  %定义lattice
  a1=a*[1/2,sqrt(3)/2,0];
@@ -94,7 +98,7 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
  k=4*pi/(sqrt(3)*a)*[kx,ky,0];
 
  %不考虑其他效应，定义最原始的TB矩阵
- tb_no_soc=zeros(9,9);
+ tb_no_soc=zeros(11,11);
  %定义对角元
  tb_no_soc(1,1)=e1;
  tb_no_soc(2,2)=e2;
@@ -105,6 +109,8 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
  tb_no_soc(7,7)=e4;
  tb_no_soc(8,8)=e5;
  tb_no_soc(9,9)=e6;
+ tb_no_soc(10,10)=e7;
+ tb_no_soc(11,11)=e7;
  %定义其他元素
  %{
    矩阵前三行代表的尸V原子的dx2-dy2、dxy、dz2轨道
@@ -120,6 +126,7 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
  tb_no_soc(3,2)=conj(tb_no_soc(2,3));
  %{
     矩阵的第4-6行分别表示的是上面一层Se原子点px py pz轨道，第7-9行是下面一层Se原子的px py pz轨道
+    第10行是上面一层原子的s轨道，第11行驶下面一层原子的s轨道
     只考虑同种原子的相互作用
     同样，对角项只考虑onsite，非对角项不考虑onsite
     以下就是
@@ -136,6 +143,18 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
  tb_no_soc(8,9)=0;
  tb_no_soc(9,7)=0;
  tb_no_soc(9,8)=0;
+ tb_no_soc(10,4)=1/2*Vspa*(exp(i*dot(k,a2))+exp(i*dot(k,a1))-exp(-i*dot(k,a2))-exp(-i*dot(k,a1))+2*exp(i*dot(k,a2+a1))-2*exp(-i*dot(k,a1+a2)));
+ tb_no_soc(10,5)=sqrt(3)/2*Vspa*(exp(i*dot(k,a1))-exp(i*dot(k,a2))+exp(-i*dot(k,a2))-exp(-i*dot(k,a1)));
+ tb_no_soc(10,6)=0;
+ tb_no_soc(4,10)=conj(tb_no_soc(10,4));
+ tb_no_soc(5,10)=conj(tb_no_soc(10,5));
+ tb_no_soc(6,10)=conj(tb_no_soc(10,6));
+ tb_no_soc(11,7)=tb_no_soc(10,4);
+ tb_no_soc(11,8)=tb_no_soc(10,5);
+ tb_no_soc(11,9)=tb_no_soc(10,6);
+ tb_no_soc(7,11)=conj(tb_no_soc(11,7));
+ tb_no_soc(8,11)=conj(tb_no_soc(11,8));
+ tb_no_soc(9,11)=conj(tb_no_soc(11,9));
  %{
    下面几项都是d轨道与p轨道的hop
  %}
@@ -196,47 +215,83 @@ function [H]=TBMatrix(a,d,e1,e2,e3,e4,e5,e6,Vdda,Vddb,Vddc,Vpda,Vpdb,Vppa,Vppb,c
  tb_no_soc(7,6)=conj(tb_no_soc(6,7));
  tb_no_soc(8,6)=conj(tb_no_soc(6,8));
  tb_no_soc(9,6)=conj(tb_no_soc(6,9));
+ %{
+    下面几行是s与p轨道的hop
+ %}
+ tb_no_soc(10,7)=0;
+ tb_no_soc(10,8)=0;
+ tb_no_soc(10,9)=-Vspa;
+ tb_no_soc(7,10)=conj(tb_no_soc(10,7));
+ tb_no_soc(8,10)=conj(tb_no_soc(10,8));
+ tb_no_soc(9,10)=conj(tb_no_soc(10,9));
+ tb_no_soc(11,4)=0;
+ tb_no_soc(11,5)=0;
+ tb_no_soc(11,6)=Vspa;
+ tb_no_soc(4,11)=conj(tb_no_soc(11,4));
+ tb_no_soc(5,11)=conj(tb_no_soc(11,5));
+ tb_no_soc(6,11)=conj(tb_no_soc(11,6)); 
+ %{
+    下面几行是s与d轨道的hop
+ %}
+ tb_no_soc(1,10)=r^2*Vsda*sqrt(3)/2*(1/2*exp(i*dot(k,a2+b1))+1/2*exp(i*dot(k,-a1+b1))-exp(i*dot(k,b1)));
+ tb_no_soc(2,10)=r^2*Vsda*3/4*(-exp(i*dot(k,a2+b1))+exp(i*dot(k,-a1+b1)));
+ tb_no_soc(3,10)=-r^2*Vsda*(1-2*d^2)/2*(exp(i*dot(k,a2+b1))+exp(i*dot(k,-a1+b1))+exp(i*dot(k,b1)));
+ tb_no_soc(10,1)=conj(tb_no_soc(1,10));
+ tb_no_soc(10,2)=conj(tb_no_soc(2,10));
+ tb_no_soc(10,3)=conj(tb_no_soc(3,10));
+ tb_no_soc(11,1)=tb_no_soc(10,1);
+ tb_no_soc(11,2)=tb_no_soc(10,2);
+ tb_no_soc(11,3)=tb_no_soc(10,3);
+ tb_no_soc(1,11)=conj(tb_no_soc(11,1));
+ tb_no_soc(2,11)=conj(tb_no_soc(11,2));
+ tb_no_soc(3,11)=conj(tb_no_soc(11,3));
+ %{
+   下面几行是s与s轨道的hop
+   tb_no_soc(10,11)=Vssa;
+   tb_no_soc(11,10)=conj(tb_no_soc(10,11));
+ %} 
+
 
  %定义SOC矩阵
- soc=zeros(18,18);
+ soc=zeros(22,22);
  soc(1,2)=-2*i;
  soc(2,1)=conj(soc(1,2));
- soc(10,11)=2*i;
- soc(11,10)=conj(soc(10,11));
+ soc(12,13)=2*i;
+ soc(13,12)=conj(soc(12,13));
  
  soc(4,5)=-i;
  soc(5,4)=conj(soc(4,5));
- soc(13,14)=i;
- soc(14,13)=conj(soc(13,14));
- soc(4,15)=1;
- soc(15,4)=conj(soc(4,15));
- soc(13,6)=-1;
- soc(6,13)=conj(soc(13,6));
- soc(5,15)=-i;
- soc(15,5)=conj(soc(5,15));
- soc(14,6)=-i;
- soc(6,14)=conj(soc(14,6));
+ soc(15,16)=i;
+ soc(16,15)=conj(soc(15,16));
+ soc(4,17)=1;
+ soc(17,4)=conj(soc(4,17));
+ soc(15,6)=-1;
+ soc(6,15)=conj(soc(15,6));
+ soc(5,17)=-i;
+ soc(17,5)=conj(soc(5,17));
+ soc(16,6)=-i;
+ soc(6,16)=conj(soc(16,6));
  
  soc(7,8)=-i;
  soc(8,7)=conj(soc(7,8));
- soc(16,17)=i;
- soc(17,16)=conj(soc(16,17));
- soc(7,18)=1;
- soc(18,7)=conj(soc(7,18));
- soc(16,9)=-1;
- soc(9,16)=conj(soc(16,9));
- soc(8,18)=-i;
- soc(18,8)=conj(soc(8,18));
- soc(17,9)=-i;
- soc(9,17)=conj(soc(17,9));
+ soc(18,19)=i;
+ soc(19,18)=conj(soc(18,19));
+ soc(7,20)=1;
+ soc(20,7)=conj(soc(7,20));
+ soc(18,9)=-1;
+ soc(9,18)=conj(soc(18,9));
+ soc(8,20)=-i;
+ soc(20,8)=conj(soc(8,20));
+ soc(19,9)=-i;
+ soc(9,19)=conj(soc(19,9));
  
  soc=c*soc;
 
  %磁效应
- mag=[m1*eye(3),zeros(3,6);zeros(6,3),m2*eye(6)];
+ mag=[m1*eye(3),zeros(3,8);zeros(8,3),m2*eye(8)];
 
  %定义总的矩阵
- H=[tb_no_soc+mag,zeros(9,9);zeros(9,9),tb_no_soc-mag]+soc;
+ H=[tb_no_soc+mag,zeros(11,11);zeros(11,11),tb_no_soc-mag]+soc;
 end 
 
 
